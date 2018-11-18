@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using System.Xml;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using SbAdminCore.Web.Models;
+using SbAdminCore.Web.ViewModels;
 
 namespace SbAdminCore.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly List<Employee> _employees;
+
+        public HomeController(IHostingEnvironment env)
+        {
+            _employees = new List<Employee>();
+            FetchEmployees(env);
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(new HomeIndexViewModel { Employees = new List<Employee>(_employees) });
         }
 
         public IActionResult Blank()
@@ -27,32 +36,33 @@ namespace SbAdminCore.Web.Controllers
 
         public IActionResult Tables()
         {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(new TablesViewModel{Employees = new List<Employee>(_employees)});
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private void FetchEmployees(IHostingEnvironment env)
+        {
+            _employees.Clear();
+            var path = Path.Combine(env.ContentRootPath, "App_Data\\emps.xml");
+            var doc = new XmlDocument();
+            doc.Load(path);
+            foreach(XmlNode node in doc.DocumentElement.ChildNodes){
+                var emp = new Employee
+                {
+                    Name = node.ChildNodes[0].InnerText,
+                    Position = node.ChildNodes[1].InnerText,
+                    Office = node.ChildNodes[2].InnerText,
+                    Age = node.ChildNodes[3].InnerText,
+                    StartDate = node.ChildNodes[4].InnerText,
+                    Salary = node.ChildNodes[5].InnerText,
+                };
+                _employees.Add(emp);
+            }
         }
     }
 }
