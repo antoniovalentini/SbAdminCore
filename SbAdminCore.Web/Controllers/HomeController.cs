@@ -25,6 +25,11 @@ namespace SbAdminCore.Web.Controllers
             return View();
         }
 
+        public IActionResult Tables()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
