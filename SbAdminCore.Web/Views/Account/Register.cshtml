@@ -1,4 +1,4 @@
-﻿
+﻿@model SbAdminCore.Web.ViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
     Layout = null;
@@ -18,13 +18,13 @@
     <title>SB Admin - Register</title>
 
     <!-- Bootstrap core CSS-->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="/css/sb-admin.css" rel="stylesheet">
 
 </head>
 
@@ -34,49 +34,50 @@
         <div class="card card-register mx-auto mt-5">
             <div class="card-header">Register an Account</div>
             <div class="card-body">
-                <form>
+                <form asp-controller="Account" asp-action="Register">
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" id="firstName" class="form-control" placeholder="First name" required="required" autofocus="autofocus">
-                                    <label for="firstName">First name</label>
+                                    <input type="text" asp-for="Firstname" class="form-control" placeholder="First name" required="required" autofocus="autofocus" />
+                                    <label asp-for="Firstname">Firstname</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" id="lastName" class="form-control" placeholder="Last name" required="required">
-                                    <label for="lastName">Last name</label>
+                                    <input type="text" asp-for="Lastname" class="form-control" placeholder="Last name" required="required" autofocus="autofocus" />
+                                    <label asp-for="Lastname">Lastname</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required">
-                            <label for="inputEmail">Email address</label>
+                            <input type="email" asp-for="Email" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" />
+                            <label asp-for="Email">Email address</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
-                                    <label for="inputPassword">Password</label>
+                                    <input type="password" asp-for="Password" class="form-control" placeholder="Password" required="required" />
+                                    <label asp-for="Password">Password</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-label-group">
+                                    @* IMPLEMENT CONFIRM PASSWORD CHECK *@
                                     <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password" required="required">
                                     <label for="confirmPassword">Confirm password</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Login" asp-action="Index">Register</a>
+                    <button class="btn btn-primary btn-block" type="submit">Register</button>
                 </form>
                 <div class="text-center">
-                    <a class="d-block small mt-3" asp-area="" asp-controller="Login" asp-action="Index">Login Page</a>
+                    <a class="d-block small mt-3" asp-area="" asp-controller="Account" asp-action="Login">Login Page</a>
                     <a class="d-block small" asp-area="" asp-controller="Account" asp-action="ForgotPassword">Forgot Password?</a>
                 </div>
             </div>
@@ -84,13 +85,12 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 </body>
 
 </html>
-

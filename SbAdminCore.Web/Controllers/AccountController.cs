@@ -9,15 +9,12 @@ namespace SbAdminCore.Web.Controllers
     public class AccountController : Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public AccountController(SignInManager<IdentityUser> signInManager)
+        public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            _userManager = userManager;
         }
 
         public IActionResult ForgotPassword()
@@ -60,6 +57,39 @@ namespace SbAdminCore.Web.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        {
+            if (!ModelState.IsValid)
+                return UnprocessableEntity();
+
+            var user = new IdentityUser(model.Email);
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                // TODO: implement confirmation email flow
+                //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                //var callbackUrl = Url.Page(
+                //    "/Account/ConfirmEmail",
+                //    pageHandler: null,
+                //    values: new { userId = user.Id, code = code },
+                //    protocol: Request.Scheme);
+
+                //return Ok(callbackUrl);
+                return Ok("Registration successful!");
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid registration attempt.");
+            return BadRequest(model);
         }
     }
 }
