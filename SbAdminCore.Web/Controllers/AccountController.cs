@@ -72,7 +72,7 @@ namespace SbAdminCore.Web.Controllers
             if (!ModelState.IsValid)
                 return UnprocessableEntity();
 
-            var user = new IdentityUser(model.Email);
+            var user = new IdentityUser { UserName = model.Email, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
