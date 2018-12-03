@@ -37,7 +37,7 @@ namespace SbAdminCore.Web.Controllers
 
             returnUrl = returnUrl ?? Url.Content("~/");
 
-            var user = new IdentityUser(model.Email);
+            var user = await _userManager.FindByNameAsync(model.Email);
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
 
             if (result.Succeeded)
