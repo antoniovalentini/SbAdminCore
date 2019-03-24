@@ -21,7 +21,7 @@ namespace SbAdminCore.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(new HomeIndexViewModel { Employees = new List<Employee>(_employees) });
+            return View();
         }
 
         public IActionResult Blank()
