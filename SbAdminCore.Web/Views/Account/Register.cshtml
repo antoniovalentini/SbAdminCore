@@ -74,6 +74,23 @@
                             </div>
                         </div>
                     </div>
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        foreach (var modelState in ViewData.ModelState.Values)
+                        {
+                            foreach (var error in modelState.Errors)
+                            {
+                                <div class="form-group">
+                                    <div class="form-label-group">
+                                        <div class="alert alert-danger" role="alert">
+                                            @error.ErrorMessage
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        
+                    }
                     <button class="btn btn-primary btn-block" type="submit">Register</button>
                 </form>
                 <div class="text-center">

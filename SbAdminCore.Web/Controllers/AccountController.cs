@@ -38,18 +38,19 @@ namespace SbAdminCore.Web.Controllers
             returnUrl = returnUrl ?? Url.Content("~/");
 
             var user = await _userManager.FindByNameAsync(model.Email);
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-
-            if (result.Succeeded)
-            {
-                // YEAH
-                return LocalRedirect(returnUrl);
-            }
-            else
+            if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return View(model);
             }
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+
+            if (result.Succeeded)
+                return LocalRedirect(returnUrl);
+
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return View(model);
         }
 
         [HttpPost]
@@ -85,11 +86,15 @@ namespace SbAdminCore.Web.Controllers
                 //    protocol: Request.Scheme);
 
                 //return Ok(callbackUrl);
-                return Ok("Registration successful!");
+                return string.IsNullOrEmpty(returnUrl)
+                    ? RedirectToAction("Index", "Home")
+                    : (ActionResult) LocalRedirect(returnUrl);
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid registration attempt.");
-            return BadRequest(model);
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(error.Code, error.Description);
+
+            return View(model);
         }
     }
 }
