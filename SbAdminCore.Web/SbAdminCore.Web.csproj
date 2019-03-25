@@ -12,17 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Home\Index_old.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\_Layout_old.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="wwwroot\vendor\" />
   </ItemGroup>
 
 </Project>
