@@ -10,19 +10,14 @@
     <link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 }
 
-<!-- Breadcrumbs-->
-<ol class="breadcrumb">
-    <li class="breadcrumb-item">
-        <a href="/">Dashboard</a>
-    </li>
-    <li class="breadcrumb-item active">Tables</li>
-</ol>
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
-<!-- DataTables Example -->
-<div class="card mb-3">
-    <div class="card-header">
-        <i class="fas fa-table"></i>
-        Data Table Example
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -63,18 +58,14 @@
             </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
-
-<p class="small text-center text-muted my-5">
-    <em>More table examples coming soon...</em>
-</p>
 
 @section SpecificScripts
 {
-    <script src="/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Demo scripts for this page-->
+    <!-- Page level custom scripts -->
     <script src="/js/demo/datatables-demo.js"></script>
 }
